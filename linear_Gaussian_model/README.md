@@ -13,3 +13,9 @@ To run any other method like SMCMC, e.g., type this in the terminal:
 ```
 python3 ./run_mcmc_filter.py
 ```
+
+After finishing running the rest of the methods, run the following matlab code:
+```
+read_h5.m
+```
+to generate histograms of the absolute errors.
