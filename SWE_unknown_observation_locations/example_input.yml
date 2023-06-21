@@ -1,0 +1,66 @@
+ncores: 52 #number of processors available on the machine
+nsimu: 26 #must be a multiple of ncores
+run_simuls_in_parallel: True
+################## Shallow water solver ######
+bound_cond: 2 # 0:reflective. 1: periodic. 2: Dirichlet 
+#reflective: u(t; 0; y) = u(t; 1; y) = 0 and v(t; x; 0) = v(t; x; 1) = 0.
+#periodic: Q(t; x; 0) = Q(t; x; 1) for all x
+#          Q(t; 0; y) = Q(t; 1; y) for all y
+#          No flux from north / south:
+#          v[t,:, [0,-1]] = 0
+#          and h is fixed for all t.
+#          Q is  h, u or v
+#Dirichlet: Q(t; x; 0) = f0_Q(t,x)
+#           Q(t; x; 1) = g0_Q(t,x)
+#           Q(t; 0; y) = f1_Q(t,y)
+#           Q(t; 1; y) = g1_Q(t,y)
+c: 0.5 #used inside the solver for CFL condition
+g: 9.81 #gravity const
+### F = f0 + beta (y- mean(y)), the Coriolis parameter is modelled as varying linearly with y 
+### such that f = f0 + β(y − y¯). Thus f = f0 in the middle of the domain in the y direction
+f0: 1.e-5 #1.e-5 #Coriolis parameter (sec^{-1})
+beta: 1.6e-11   # Meridional gradient of f (s^{-1}m^{-1}) 
+omega: 7.27e-5 #radian/second. Earth angular frequency
+H_provided: True #Is the orography (bathymetry) H provided by the user?
+ssh_provided: True #Is the initial water height above geoid provided?
+uv_provided: True # Are the vlocities u and v provided?
+simu_days: 4 #how many days of available data
+
+################## Floater info #####
+floaters_init_data_provided: True #if this is true, below parameters will not affect the code
+N_f: 12 #total number of floaters.
+obs_loc_choice: 0 #0: choose the closest surrounding point around the floater as an obs. point
+                  #1: choose randomly (with prob = weights(depend on the distances from the surrounding points)) 
+                  #   a surrounding point around the floater as an obs. point
+######### Hidden Markov Model ####
+T: 2000 #stop simulations after T * dt unit time
+dgx: 121 #240 #120 #Number of zonal gridpoints
+dgy: 121 #186 #93 #Number of meridional gridpoints
+dx: 8.602e+3 #4.528e+3  #16.5687e+3 #8.28435e+3 #14.638e+3 #7.319e+3 #16.0e+3 #32.0e+3 # # Zonal grid spacing (m)
+dy: 9.258e+3 #4.6285e+3  #16.5687e+3  #8.28435e+3 #18.499e+3 #9.2497e+3 #16.0e+3 #32.0e+3 #8.0e+3 # Meridional grid spacing
+
+long: [-51, -41]
+lat: [17, 27]
+mid_lat: 22
+dt: 60 #60 seconds
+mrc: 0.05 #Chezy coef. (Bottom friction) sqrt(m)/sec
+t_freq: 10 #time frequency. Observe every "t_freq * dt" 
+noise_modes_num: 8
+sig_x: 1.e-4 #noise standard deviation in hidden state (m)
+add_noise_sig_every_dt: False
+sig_y: 1.45e-2 #noise standard deviation in obs state (m)
+
+#### MCMC Filtering #####
+sig_mcmc_filt: 4.e-4 #8.5e-9
+mcmc_N: 1200
+burn_in: 200
+########### Files and Folders to save results ###########
+prior_dir: ./prior_dir
+data_dir: ./example/data
+floater_info_file: ./example/data/floater_info.h5
+main_dir: ./example
+mcmc_filter_dir: ./example/mcmc_filtering
+mcmc_filter_file: ./example/mcmc_filtering/mcmc_filter.h5
+mcmc_restart_dir: ./example/mcmc_filtering/restart
+floaters_info_dir: ./example/mcmc_filtering/floater_info
+data_file: ./example/data/data.h5
