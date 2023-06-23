@@ -1,6 +1,6 @@
 # Sequential Markov Chain Monte Carlo for Lagrangian Data Assimilation with Applications to Unknown Data Locations
 
-We now illustrate the performance of our Algorithms in three different cases:
+We illustrate the performance of our Algorithms in the paper (https://arxiv.org/abs/2305.00484) in three different cases:
 
 1) A linear Gaussian model. Here we show both efficiency and accuracy compared to competing ensemble methodologies like EnKF, ETKF and ESTKF. In contrast to how practitioners use the latter, we use moderately high number of ensembles 500-10^4 noting that for this model these methods are consistent and increasing number of ensembles improves accuracy.
 To run this case do the following:
