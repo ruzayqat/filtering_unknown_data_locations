@@ -6,10 +6,10 @@ We illustrate the performance of our Algorithms in the paper (https://arxiv.org/
 To run this case do the following:
 
     - First we run the KF to generate the data and the true solution for the given parameters in ```example_input.yml ```, simply run this in   	the terminal. This will create a folder named data and generate the observations (data) and save it in a file data.h5 to be used by the other methods.
-    ```
-  	cd linear_Gaussian_model
-  	python3 ./run_KF.py
-    ```
+      ```
+  	   cd linear_Gaussian_model
+  	   python3 ./run_KF.py
+      ```
 
     - The run the rest of the methods as follows:
       ```
