@@ -1,0 +1,28 @@
+ncores: 104 #number of processors available on the machine
+nsimu: 208 #must be a multiple of ncores if it is larger than ncores
+######### Hidden Markov Model ####
+T: 100 #stop simulations after T steps
+dx: 2500 #hidden state dims
+t_freq: 1 #time frequency. Observe every "t_freq * dt" 
+s_freq: 4 # spatial frequency. Observe the coordinates: s_freq, 2*s_freq, ....
+          # Y_n = X_n[s_freq-1::s_freq] 
+A: -0.95 # X_{n+1} = A X_{n} + sig_x W_n, W_n ~ N(0,I)
+sig_x: 1.e-1 #noise standard deviation in hidden state (m)
+add_noise_sig_every_dt: True
+sig_y: 1.e-1 #noise standard deviation in obs state (m)
+
+#Ensemble methods
+M_enkf : 1000
+M_etkf : 1000
+M_estkf : 1000
+#Local EnKF number of subdomains:
+#set this is to True only if there are many cores left over not used for paralellization. These are needed for matrix multiplications.
+do_parallel_local_updates: False 
+subdom_elements: 42
+#### MCMC Filtering #####
+sig_mcmc_filt: 4.e-3
+mcmc_N: 500
+burn_in: 100
+
+
+
